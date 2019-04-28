@@ -7,7 +7,7 @@ and mutation-based fault localization (MBFL techniques for short).
 
 >Coverage-based fault localization
 
-#### Techniques
+## Techniques
 * SBFL
     * Ochiai
     * Dstar
