@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String args[]){
 
-       // dorun_gzoltars();
+        dorun_gzoltars();
 
 
 
