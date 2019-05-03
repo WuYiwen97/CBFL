@@ -44,6 +44,8 @@ public class Metallaxis {
                 Killmap killmapB=killmapList.get(index2);
                 //找到mutants 的突变情况
                 if (mutantsA.getID()==killmapB.getMutantid()){
+                    //对于找到的mutants 放入mutantsList1中
+                    mutantsList1.add(mutantsA);
                     /*System.out.println("找到了");*/
                     if (killmapB.getOutcome().equals("PASS")){
                         if(findOldOutCome(killmapB,killmapList).equals("FAIL")){
@@ -60,7 +62,7 @@ public class Metallaxis {
                     double susp =0.0;
                     if (mf==0){
                         //System.out.println(mutantsA.getID());
-                        mutantsA.setSuspicion(1.2);
+                        mutantsA.setSuspicion(0.0);
                     }
                     else {
                         /*System.out.println("mf =?0");*/
@@ -73,6 +75,23 @@ public class Metallaxis {
 
             }
         }
+
+        //很可能都为0 很大的可能
+        //如果在mutantsList1里面 就设置为0.5
+        if(mutantsALLZORE(mutantsList)){
+            for(int index=0;index<mutantsList1.size();index++){
+                int id=mutantsList1.get(index).getID();
+                for (int index1=0;index1<mutantsList.size();index1++){
+                    Mutants mutants=mutantsList.get(index1);
+                    if (id==mutants.getID()){
+                        mutants.setSuspicion(0.5);
+                    }
+                }
+            }
+
+        }
+
+
         return  mutantsList;
     }
 
@@ -102,5 +121,16 @@ public class Metallaxis {
         return null;    //error
 
 
+    }
+
+    private static boolean mutantsALLZORE(List<Mutants> mutantsList){
+        boolean flag=true;
+        for (Mutants mutants:mutantsList){
+            //如果有一个mutants计算结果不是0
+            if (!mutants.getSuspicion().equals(0.0)){
+                flag=false;
+            }
+        }
+        return flag;
     }
 }

@@ -14,7 +14,7 @@ import static com.wuyiwen.test.RunShell.dorun_gzoltars;
 //97
 public class Main {
 
-    public static final String DOWNLOAD_PATH="/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Chart/3/";
+    public static final String DOWNLOAD_PATH="/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Lang/5/";
     public static final String FLDPATH="/Users/wuyiwen/Documents/GraduationProject/fault-localization-data/";
 
     public static void main(String args[]){
@@ -72,18 +72,17 @@ public class Main {
         }
 
 
-        /*//TODO EXAM评分？？？
+        //TODO EXAM评分？？？
 
         // spectraID 去找变异的
         // 对应行找变异 没找到说明突变体没有影响到测试用例
         //mutants
-        List<String> stringListMutants=ReadFile.readMutantsFileByLines(DOWNLOAD_PATH+"killmaps/Chart/3/mutants.log");
+        List<String> stringListMutants=ReadFile.readMutantsFileByLines(DOWNLOAD_PATH+"killmaps/Lang/5/mutants.log");
         List<Mutants> mutantsList=MutantsHandler.fileToMutants(stringListMutants);
 
-        *//**
-         * 行对应变异 要找到变异的ID
-         *
-         *//*
+        //行对应变异 要找到变异的ID
+
+
         System.out.println("===========");
         List<Mutants> mutantsIDList=MutantsHandler.spectraToMutants(spectraID,mutantsList);
         System.out.println(mutantsIDList.size());
@@ -93,7 +92,7 @@ public class Main {
 
 
         //TODO killmap
-        List<String> stringListKillmap=ReadFile.readKillmapFileByLines("/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Chart/3/killmaps/Chart/3/killmap.csv");
+        List<String> stringListKillmap=ReadFile.readKillmapFileByLines("/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Lang/5/killmaps/Lang/5/killmap.csv");
         List<Killmap> killmapList=KillmapHandler.fileToKillmap(stringListKillmap);
 
 
@@ -117,7 +116,7 @@ public class Main {
         List<Spectra> spectrasFinallSort=LineSort.sortSpectra(spectraFinall);
         for (Spectra spectra:spectrasFinallSort){
             System.out.println("变异后的排行"+spectra.getFilename()+"\t"+spectra.getLine());
-        }*/
+        }
 
     }
 
