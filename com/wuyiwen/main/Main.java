@@ -15,17 +15,18 @@ import static com.wuyiwen.test.RunShell.dorun_gzoltars;
 public class Main {
 
     public static final String DOWNLOAD_PATH="/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Chart/3/";
+    public static final String FLDPATH="/Users/wuyiwen/Documents/GraduationProject/fault-localization-data/";
 
     public static void main(String args[]){
 
-        dorun_gzoltars();
+        //dorun_gzoltars();
 
 
 
 
         List<String []> stringListMatrix=new ArrayList<>();
         //按行读取
-        String workpathMatrix=DOWNLOAD_PATH+"gzoltars/Chart/3/matrix";
+        String workpathMatrix=FLDPATH+"gzoltar/out/gzoltars/Lang/5/matrix";
         stringListMatrix=MatrixHandler.readMatrixFileByLines(workpathMatrix);
         System.out.println("size is === it means ???测试用例    "+stringListMatrix.size());
         String[] first=stringListMatrix.get(1);
@@ -51,12 +52,12 @@ public class Main {
         //给出前50最高可疑度的代码行  排序
         // 从小到大 怀疑度 增加
         List<Suspicious> suspiciousListAfterSort= LineSort.sortLine(suspiciousList);
-        /*for(Suspicious suspicious:suspiciousListAfterSort){
+        for(Suspicious suspicious:suspiciousListAfterSort){
             System.out.println("line="+suspicious.getId()+"suspicious"+suspicious.getResult());
-        }*/
+        }
 
         //得到spectralist
-        String workpathSpectra=DOWNLOAD_PATH+"gzoltars/Chart/3/spectra";
+        String workpathSpectra=FLDPATH+"gzoltar/out/gzoltars/Lang/5/spectra";
         List<String> stringListSpectra=ReadFile.readSpectraFileByLines(workpathSpectra);
         List<Spectra> spectraList= SpectraHandler.fileInSpectra(stringListSpectra);
 
@@ -71,7 +72,7 @@ public class Main {
         }
 
 
-        //TODO EXAM评分？？？
+        /*//TODO EXAM评分？？？
 
         // spectraID 去找变异的
         // 对应行找变异 没找到说明突变体没有影响到测试用例
@@ -79,9 +80,10 @@ public class Main {
         List<String> stringListMutants=ReadFile.readMutantsFileByLines(DOWNLOAD_PATH+"killmaps/Chart/3/mutants.log");
         List<Mutants> mutantsList=MutantsHandler.fileToMutants(stringListMutants);
 
-        /**
+        *//**
          * 行对应变异 要找到变异的ID
-         */
+         *
+         *//*
         System.out.println("===========");
         List<Mutants> mutantsIDList=MutantsHandler.spectraToMutants(spectraID,mutantsList);
         System.out.println(mutantsIDList.size());
@@ -115,7 +117,7 @@ public class Main {
         List<Spectra> spectrasFinallSort=LineSort.sortSpectra(spectraFinall);
         for (Spectra spectra:spectrasFinallSort){
             System.out.println("变异后的排行"+spectra.getFilename()+"\t"+spectra.getLine());
-        }
+        }*/
 
     }
 

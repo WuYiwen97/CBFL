@@ -20,7 +20,8 @@ public class SpectraHandler {
         for (int index=0;index<stringListSpectra.size();index++){
             String[] strings=stringListSpectra.get(index).split("#");
             Spectra spectra=new Spectra();
-            spectra.setId(index+1);
+            //应该从0开始
+            spectra.setId(index);
             spectra.setFilename(strings[0]);
             spectra.setLine(Integer.parseInt(strings[1]));
             spectra.setSuspicious(0.0);
@@ -40,10 +41,12 @@ public class SpectraHandler {
      */
     public static List<Spectra> ochiaiToSpectra(List<Spectra> spectraList, List<Suspicious> suspiciousList,int line){
         List<Spectra> spectraList1=new ArrayList<>();
+        System.out.println(spectraList.size()+"\t"+suspiciousList.size());
         for(int index=0;index<line;index++){
             int suspLine=suspiciousList.get(index).getId();
             for(int indexTwo=0;indexTwo<spectraList.size();indexTwo++){
                 if (suspLine==spectraList.get(indexTwo).getId()){
+                    System.out.println("find one");
                     spectraList1.add(spectraList.get(indexTwo));
                     }
                 }
@@ -60,13 +63,18 @@ public class SpectraHandler {
                 Spectra spectraA=spectraList.get(index);
                 Mutants mutantsA=mutantsList.get(index2);
                 if (spectraA.getFilename().equals(mutantsA.getFilename()) && spectraA.getLine().equals(mutantsA.getCodeline())){
-                    if (spectraA.getSuspicious()<mutantsA.getSuspicion()){
+
+                    //返回值 先置空
+                    spectraA.setSuspicious(0.0);
+                    if (spectraA.getSuspicious()<=mutantsA.getSuspicion()){
                         spectraA.setSuspicious(mutantsA.getSuspicion());
                     }
                 }
 
             }
         }
+        //假如结果都为空
+
 
         return spectraList;
     }

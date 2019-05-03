@@ -11,7 +11,7 @@ public class CountCodeLine
     static boolean bComment=false;
     public static void main(String[] args)
     {
-        StringBuffer pathName=new StringBuffer("/Users/wuyiwen/Documents/GraduationProject/ProjectCode/src");
+        StringBuffer pathName=new StringBuffer("/Users/wuyiwen/Documents/GraduationProject/ProjectCodeGUI/src");
         ComputeDirectoryAndFiles(pathName,3);
         System.out.println("tatol lines :"+tatolLines);
         System.out.println("Code Lines : "+(codeLines=tatolLines-commentLines-whiteLines));
