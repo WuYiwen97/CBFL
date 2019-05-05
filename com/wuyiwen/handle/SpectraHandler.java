@@ -58,14 +58,16 @@ public class SpectraHandler {
 
 
     public  static List<Spectra> getSpectraFinall(List<Mutants> mutantsList,List<Spectra> spectraList ){
+        //先置空
+        for (Spectra spectra:spectraList){
+            spectra.setSuspicious(0.0);
+        }
+
         for (int index=0;index<spectraList.size();index++){
             for (int index2=0;index2<mutantsList.size();index2++){
                 Spectra spectraA=spectraList.get(index);
                 Mutants mutantsA=mutantsList.get(index2);
                 if (spectraA.getFilename().equals(mutantsA.getFilename()) && spectraA.getLine().equals(mutantsA.getCodeline())){
-
-                    //返回值 先置空
-                    spectraA.setSuspicious(0.0);
                     if (spectraA.getSuspicious()<=mutantsA.getSuspicion()){
                         spectraA.setSuspicious(mutantsA.getSuspicion());
                     }
@@ -73,7 +75,6 @@ public class SpectraHandler {
 
             }
         }
-        //假如结果都为空
 
 
         return spectraList;

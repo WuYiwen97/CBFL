@@ -49,6 +49,7 @@ public class OnlySMFL {
         /*for (int index=0;index<11;index++){
             System.out.println("only metall"+spectraOnlyMetallMutantsFinall.get(index).getFilename()+spectraOnlyMetallMutantsFinall.get(index).getLine()+"\t"+spectraOnlyMetallMutantsFinall.get(index).getSuspicious());
         }*/
+
         for (Spectra spectra:spectraOnlyMetallMutantsFinall){
             System.out.println(spectra.getFilename()+spectra.getLine()+"\t"+spectra.getSuspicious());
         }
