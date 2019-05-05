@@ -14,7 +14,7 @@ import static com.wuyiwen.test.RunShell.dorun_gzoltars;
 //97
 public class Main {
 
-    public static final String DOWNLOAD_PATH="/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Lang/5/";
+    public static final String DOWNLOAD_PATH="/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Lang/3/";
     public static final String FLDPATH="/Users/wuyiwen/Documents/GraduationProject/fault-localization-data/";
 
     public static void main(String args[]){
@@ -76,6 +76,9 @@ public class Main {
 
         // spectraID 去找变异的
         // 对应行找变异 没找到说明突变体没有影响到测试用例
+
+
+
         //mutants
         List<String> stringListMutants=ReadFile.readMutantsFileByLines(DOWNLOAD_PATH+"killmaps/Lang/5/mutants.log");
         List<Mutants> mutantsList=MutantsHandler.fileToMutants(stringListMutants);
@@ -91,7 +94,7 @@ public class Main {
         }
 
 
-        //TODO killmap
+        //killmap
         List<String> stringListKillmap=ReadFile.readKillmapFileByLines("/Users/wuyiwen/Documents/GraduationProject/fldata/fault-localization.cs.washington.edu/data/Lang/5/killmaps/Lang/5/killmap.csv");
         List<Killmap> killmapList=KillmapHandler.fileToKillmap(stringListKillmap);
 
@@ -117,6 +120,30 @@ public class Main {
         for (Spectra spectra:spectrasFinallSort){
             System.out.println("变异后的排行"+spectra.getFilename()+"\t"+spectra.getLine());
         }
+
+
+        //new 只跑变异的
+        /**
+         * 只跑变异是什么问题呢
+         * 变异体不一定能找到行
+         *
+         *
+         */
+        List<Mutants> onlyMetallsuspicious=Metallaxis.calculateMetallaxis(killmapList,mutantsList);
+        //排序他
+        System.out.println("sort mutants suspicious");
+        List<Mutants> onlyMutantsAfterSort = LineSort.sortMutants(onlyMetallsuspicious);
+        for (Mutants a:onlyMutantsAfterSort){
+            System.out.println(a.getID()+"\t"+a.getFilename()+"\t"+a.getCodeline()+"\t"+a.getSuspicion());
+        }
+        List<Spectra> spectraOnlyMetallMutants=SpectraHandler.getSpectraFinall(onlyMutantsAfterSort,spectraList);
+        List<Spectra> spectraOnlyMetallMutantsFinall=LineSort.sortSpectra(spectraOnlyMetallMutants);
+        //只输出几行
+        for (int index=0;index<11;index++){
+            System.out.println("only metall"+spectraOnlyMetallMutantsFinall.get(index).getFilename()+spectraOnlyMetallMutantsFinall.get(index).getLine()+"\t"+spectraOnlyMetallMutantsFinall.get(index).getSuspicious());
+        }
+
+
 
     }
 

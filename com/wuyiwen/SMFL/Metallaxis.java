@@ -123,6 +123,12 @@ public class Metallaxis {
 
     }
 
+
+    /**
+     * 假如都是0的计算结果
+     * @param mutantsList
+     * @return
+     */
     private static boolean mutantsALLZORE(List<Mutants> mutantsList){
         boolean flag=true;
         for (Mutants mutants:mutantsList){
@@ -133,4 +139,7 @@ public class Metallaxis {
         }
         return flag;
     }
+
+
+
 }
