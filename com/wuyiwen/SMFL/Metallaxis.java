@@ -19,11 +19,11 @@ public class Metallaxis {
      * @param mutantsList
      * @return
      */
-    public static List<Mutants> calculateMetallaxis(List<Killmap> killmapList,List<Mutants> mutantsList){
+    public static List<Mutants> calculateMetallaxis(List<Killmap> killmapList, List<Mutants> mutantsList){
         List<Mutants> mutantsList1=new ArrayList<>();
         int totalF=0; //未执行变异体 总的失败数字
         int totalP=0; //未执行变异体 总的成功的
-        //TODO 先算 F 覆盖的行 --0 outcome----FAIL
+        // 先算 F 覆盖的行 --0 outcome----FAIL
         for(int index=0;index<killmapList.size();index++){
             Killmap killmapA=killmapList.get(index);
             if (killmapA.getMutantid()==0 && killmapA.getOutcome().endsWith("FAIL")){
@@ -34,20 +34,24 @@ public class Metallaxis {
             }
         }
         System.out.println("echo ===========fail or pass"+totalF+"\t"+totalP);
-        // TODO 找变化的值
+        //  找变化的值
+        //TODO 优化
 
         for(int index=0;index<mutantsList.size();index++){
             //System.out.println("===========");
             Mutants mutantsA=mutantsList.get(index);
+            //对于每一个mutants
+            //找到mutants 的突变情况
+            int mf=0; //fail -> pass
+            int mp=0; //pass -> fail
             for (int index2=0;index2<killmapList.size();index2++){
                 Killmap killmapB=killmapList.get(index2);
-                //找到mutants 的突变情况
+
                 if (mutantsA.getID()==killmapB.getMutantid()){
-                    //对于找到的mutants 放入mutantsList1中
-                    mutantsList1.add(mutantsA);
-                    int mf=0; //fail -> pass
-                    int mp=0; //pass -> fail
                     /*System.out.println("找到了");*/
+
+                    //有很大可能性找不到 所以找到要做个标记
+
                     if (killmapB.getOutcome().equals("PASS")){
                         if(findOldOutCome(killmapB,killmapList).equals("FAIL")){
                             mf++;
@@ -59,27 +63,34 @@ public class Metallaxis {
                             mp++;
                         }
                     }
-                    //计算
-                    double susp =0.0;
-                    if (mf==0){
-                        //System.out.println(mutantsA.getID());
-                        mutantsA.setSuspicion(0.0);
-                    }
-                    else {
-                        /*System.out.println("mf =?0");*/
-                        susp=(double) mf/Math.sqrt((double)totalF*((double)mf+mp));
-                        mutantsA.setSuspicion(susp);
-                        //mutantsA.setSuspicion(1.2);
-                    }
 
                 }
 
             }
+            //计算
+            double susp =0.0;
+            if (mf==0){
+                //System.out.println(mutantsA.getID());
+                mutantsA.setSuspicion(0.0);
+            }
+            else {
+                System.out.println("mf="+mf+" totalF="+totalF+"mp="+mp);
+                /*System.out.println("mf =?0");*/
+                double a=(double) mf;
+                double c=(double) totalF*(mf+mp);
+                double b=Math.sqrt(c);
+                susp= a/b;
+                System.out.println(susp);
+                mutantsA.setSuspicion(susp);
+            }
+            mutantsList1.add(mutantsA);
+
         }
 
         //很可能都为0 很大的可能
         //如果在mutantsList1里面 就设置为0.5
         if(mutantsALLZORE(mutantsList)){
+            System.out.println("不争气都是0");
             for(int index=0;index<mutantsList1.size();index++){
                 int id=mutantsList1.get(index).getID();
                 for (int index1=0;index1<mutantsList.size();index1++){
