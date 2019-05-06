@@ -35,8 +35,7 @@ public class Metallaxis {
         }
         System.out.println("echo ===========fail or pass"+totalF+"\t"+totalP);
         // TODO 找变化的值
-        int mf=0; //fail -> pass
-        int mp=0; //pass -> fail
+
         for(int index=0;index<mutantsList.size();index++){
             //System.out.println("===========");
             Mutants mutantsA=mutantsList.get(index);
@@ -46,6 +45,8 @@ public class Metallaxis {
                 if (mutantsA.getID()==killmapB.getMutantid()){
                     //对于找到的mutants 放入mutantsList1中
                     mutantsList1.add(mutantsA);
+                    int mf=0; //fail -> pass
+                    int mp=0; //pass -> fail
                     /*System.out.println("找到了");*/
                     if (killmapB.getOutcome().equals("PASS")){
                         if(findOldOutCome(killmapB,killmapList).equals("FAIL")){
