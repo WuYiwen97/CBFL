@@ -18,7 +18,7 @@ public class DownloadData {
 
     public static void main(String[] args){
         try {
-            startDownload("Closure",22);
+            startDownload("Math",23,65);
             //startDownload("Lang",22);
             //startDownload("Math",22);
             //startDownload("Time",22);
@@ -28,8 +28,8 @@ public class DownloadData {
     }
 
 
-    public static void startDownload(String projectid,int bugid) throws Exception {
-        for (int i=1;i<=bugid;i++){
+    public static void startDownload(String projectid,int min,int max) throws Exception {
+        for (int i=min;i<=max;i++){
             Download(projectid,i);
         }
 
